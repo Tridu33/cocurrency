@@ -1,0 +1,17 @@
+{
+  "name": "javascript-concurrency-examples",
+  "version": "1.0.0",
+  "description": "Concurrency paradigm mappings in JavaScript - stackless coroutines, CSP-like patterns, shared memory",
+  "main": "stackless_coroutine/generator_fibonacci.js",
+  "type": "module",
+  "scripts": {
+    "fibonacci": "node stackless_coroutine/generator_fibonacci.js",
+    "async-await": "node stackless_coroutine/async_await.js",
+    "csp": "node csp/promise_chain.js",
+    "workers": "node shared_memory/web_workers.js",
+    "actor": "node actor/print_server.js",
+    "cps": "node continuation_cps/fib_cps.js"
+  },
+  "keywords": ["concurrency", "async", "generator", "coroutine", "csp", "web-workers", "actor", "cps"],
+  "license": "MIT"
+}
