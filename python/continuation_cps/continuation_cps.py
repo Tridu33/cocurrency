@@ -69,7 +69,7 @@ class Bounce:
 
 
 class Done:
-    """A Done means "here is the final value.""""
+    """A Done means 'here is the final value.'"""
     def __init__(self, value):
         self.value = value
 

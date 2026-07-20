@@ -109,10 +109,12 @@ def _worker_sender(ch: Channel, items: list, name: str) -> None:
     """Send items into the channel."""
     for item in items:
         time.sleep(random.uniform(0.01, 0.03))
-        ch.send(item)
+        try:
+            ch.send(item)
+        except ChannelClosed:
+            break
         print(f"  [{name}] sent {item}")
     print(f"  [{name}] done")
-    ch.close()
 
 
 def _worker_receiver(ch: Channel, count: int, name: str, results: list) -> None:

@@ -68,8 +68,8 @@ public class FibonacciGenerator {
      * correctly — something true stackless coroutines cannot do
      * without every intermediate function carrying an annotation.
      */
-    public static void generateWithVirtualThread(int count) throws InterruptedException {
-        System.out.println("\n--- Virtual-thread generator (stackful) ---\n");
+    public static void generateWithThread(int count) throws InterruptedException {
+        System.out.println("\n--- Thread-based generator (stackful via BlockingQueue) ---\n");
 
         /*
          * Bounded queue (capacity = 2) creates natural back-pressure.
@@ -79,8 +79,8 @@ public class FibonacciGenerator {
          */
         BlockingQueue<Integer> queue = new LinkedBlockingQueue<>(2);
 
-        // ---- Generator (virtual thread) ----
-        Thread generator = Thread.startVirtualThread(() -> {
+        // ---- Generator (regular thread, JDK 11 compatible) ----
+        Thread generator = new Thread(() -> {
             try {
                 int a = 0, b = 1;
                 for (int i = 0; i < count; i++) {
@@ -96,6 +96,7 @@ public class FibonacciGenerator {
                 Thread.currentThread().interrupt();
             }
         });
+        generator.start();
 
         // ---- Consumer (main thread) ----
         for (int i = 0; i < count; i++) {
@@ -116,15 +117,13 @@ public class FibonacciGenerator {
     // Main
     // ---------------------------------------------------------------
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("=== Stackless vs. Stackful Coroutines (Java 21+) ===");
+        System.out.println("=== Stackless vs. Stackful Coroutines (Java) ===");
         System.out.println("  Java version                                     : "
             + System.getProperty("java.version"));
-        System.out.println("  Is virtual thread-supported                      : "
-            + (Runtime.version().feature() >= 21));
         System.out.println();
 
         System.out.println("┌─ Background ──────────────────────────────────────────────┐");
-        System.out.println("│ Java virtual threads are STACKFUL coroutines.              │");
+        System.out.println("│ Java threads are STACKFUL (OS-level).                      │");
         System.out.println("│ They preserve the entire call stack when parked (e.g.      │");
         System.out.println("│ BlockingQueue.put()).  True stackless coroutines           │");
         System.out.println("│ (Python generators, C++20 coroutines) save only the        │");
@@ -137,7 +136,7 @@ public class FibonacciGenerator {
         System.out.println("└─────────────────────────────────────────────────────────────┘");
 
         generateTraditional(10);
-        generateWithVirtualThread(10);
+        generateWithThread(10);
 
         System.out.println("\n=== Done ===");
     }

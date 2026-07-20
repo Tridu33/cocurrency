@@ -40,7 +40,7 @@ function Channel:send(value)
   end
 
   -- Buffer full: suspend sender
-  table.insert(self.senders, coroutine.running())
+  local me = coroutine.running(); table.insert(self.senders, me)
   coroutine.yield()
   self.buffer[#self.buffer + 1] = value
 end
@@ -62,7 +62,7 @@ function Channel:recv()
   end
 
   -- Buffer empty: suspend receiver
-  table.insert(self.receivers, coroutine.running())
+  local me = coroutine.running(); table.insert(self.receivers, me)
   coroutine.yield()
   return table.remove(self.buffer, 1)
 end

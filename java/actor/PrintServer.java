@@ -81,7 +81,8 @@ public class PrintServer {
                     running = false;
                     break;
                 }
-                if (msg instanceof PrintJob job) {
+                if (msg instanceof PrintJob) {
+                    PrintJob job = (PrintJob) msg;
                     counter++;
                     Thread.sleep(20);  // simulate processing
                     String output = "[PrintServer] #" + counter + " printed: " + job.text;
