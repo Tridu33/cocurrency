@@ -1,0 +1,43 @@
+# C/C++ object files
+*.o
+
+# Haskell interface files
+*.hi
+
+# Java/Kotlin class files
+*.class
+
+# Kotlin build output
+kotlin/out/
+
+# Scala build output
+scala/build/
+
+# Python cache and build
+__pycache__/
+*.pyc
+dist-newstyle/
+.pytest_cache/
+
+# Erlang crash dumps
+erl_crash.dump
+
+# Go binaries - per-directory
+go/actor/demo
+go/csp_deep_dive/demo
+go/shared_memory/demo
+go/stackless_coroutine/demo
+
+# C/C++ compiled binaries
+cpp/actor/print_server
+cpp/csp/channel_demo
+cpp/shared_memory_lock/deadlock
+cpp/shared_memory_lock/producer_consumer
+cpp/stackless_coroutine/fibonacci
+
+# Haskell compiled binaries
+haskell/actor/PrintServer
+haskell/continuation_cps/ContMonadHanoi
+haskell/shared_memory/BankAccount
+haskell/stackful/ProcessDemo
+haskell/stm/STMBank
