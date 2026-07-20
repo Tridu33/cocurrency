@@ -68,6 +68,11 @@ DEMO_FILES := \
 	stackless_coroutine/stackless_vs_stackful.py \
 	stackful_coroutine/greenlet_demo.py \
 	continuation_cps/continuation_cps.py \
+	io_multiplexing/select_server.py \
+	io_multiplexing/poll_server.py \
+	io_multiplexing/epoll_server.py \
+	io_multiplexing/nio_reactor_server.py \
+	io_multiplexing/proactor_server.py \
 	t9_combinations.py
 
 .PHONY: demo
@@ -102,6 +107,7 @@ check:
 		--ignore=E402,W503 \
 		shared_memory_lock/ csp/ actor/ stm/ \
 		stackless_coroutine/ stackful_coroutine/ continuation_cps/ \
+		io_multiplexing/ \
 		t9_combinations.py tests/
 
 # ---- Setup ----
